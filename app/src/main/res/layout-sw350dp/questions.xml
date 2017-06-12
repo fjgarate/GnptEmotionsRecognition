@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left">
+
+        <ImageButton
+            android:id="@+id/button_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_exit_selector"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/zero"
+            android:onClick="toResults"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/question_layout_1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                android:id="@+id/questionTM_1"
+                style="@style/questionTMStyle350"
+                android:text="@string/questionTM_1"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceQuestionTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_11"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion1"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_11"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_12"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion1"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_12"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_13"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion1"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_13"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_14"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion1"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_14"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/question_layout_2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                android:id="@+id/questionTM_2"
+                style="@style/questionTMStyle350"
+                android:text="@string/questionTM_2"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceQuestionTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_21"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion2"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_21"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_22"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion2"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_22"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_23"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion2"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_23"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_24"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion2"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_24"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/question_layout_3"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                android:id="@+id/questionTM_3"
+                style="@style/questionTMStyle350"
+                android:text="@string/questionTM_3"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceQuestionTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_31"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion3"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_31"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_32"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion3"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_32"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_33"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion3"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_33"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_34"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion3"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_34"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/question_layout_4"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                android:id="@+id/questionTM_4"
+                style="@style/questionTMStyle350"
+                android:text="@string/questionTM_4"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceQuestionTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_41"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion4"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_41"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_42"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion4"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_42"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_43"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion4"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_43"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_44"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion4"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_44"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/question_layout_5"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                android:id="@+id/questionTM_5"
+                style="@style/questionTMStyle350"
+                android:text="@string/questionTM_5"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceQuestionTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_51"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion5"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_51"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_52"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion5"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_52"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_53"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion5"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_53"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_54"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion5"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_54"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/question_layout_6"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                android:id="@+id/questionTM_6"
+                style="@style/questionTMStyle350"
+                android:text="@string/questionTM_6"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceQuestionTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_61"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion6"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_61"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_62"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion6"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_62"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_63"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion6"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_63"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_64"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion6"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_64"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/question_layout_7"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                android:id="@+id/questionTM_7"
+                style="@style/questionTMStyle350"
+                android:text="@string/questionTM_7"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceQuestionTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_71"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion7"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_71"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_72"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion7"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_72"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_73"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion7"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_73"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_74"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion7"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_74"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/question_layout_8"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                android:id="@+id/questionTM_8"
+                style="@style/questionTMStyle350"
+                android:text="@string/questionTM_8"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceQuestionTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_81"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion8"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_81"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_82"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion8"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_82"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_83"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion8"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_83"/>
+        </LinearLayout>
+
+        <Space style="@style/spaceAnswersTMStyle"/>
+
+        <LinearLayout style="@style/layoutAnswerTMStyle">
+            <ImageButton
+                android:id="@+id/checkTM_84"
+                style="@style/checkButtonStyle350"
+                android:onClick="checkQuestion8"/>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/answersTMStyle350"
+                android:text="@string/answerTM_84"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+
+        <ImageButton
+            android:id="@+id/button_continue"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_continue_selector"
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:onClick="nextQuestion"
+            android:layout_width="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

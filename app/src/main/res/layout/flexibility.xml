@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/BackColorFlexibility">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/button_exit_selector"
+        android:onClick="toResults"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+            android:id="@+id/numbers_flexibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/flex_textSize_circle"
+            android:textColor="@android:color/black"
+            android:text="0"
+            android:layout_marginBottom="@dimen/flex_margin_circle_arrows"
+            android:background="@drawable/circle_number_flexibility"/>
+
+        <ImageButton
+            android:id="@+id/left_arrow_flexibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/numbers_flexibility"
+            android:background="@android:color/transparent"
+            android:src="@drawable/left_arrow"
+            android:onClick="buttonPressed"/>
+
+        <ImageButton
+            android:id="@+id/right_arrow_flexibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/numbers_flexibility"
+            android:layout_toRightOf="@+id/left_arrow_flexibility"
+            android:layout_marginLeft="@dimen/flex_margin_arrows"
+            android:background="@android:color/transparent"
+            android:src="@drawable/right_arrow"
+            android:onClick="buttonPressed"/>
+
+        <ImageButton
+            android:id="@+id/small_circle_flexibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/left_arrow_flexibility"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/red_circle_flexibility"
+            android:onClick="buttonPressed"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/button_exit_large_selector"
+        android:background="@android:color/transparent"
+        android:onClick="toIndex"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true">
+
+        <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fontTitleResult"
+            android:text="@string/title_results"
+            android:textSize="@dimen/results_title_size"
+            android:layout_marginBottom="@dimen/results_title_margin_text"/>
+
+        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+            style="@style/resultsTextStyle"
+            android:id="@+id/percentage_Tap"/>
+
+        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+            style="@style/resultsTextStyle"
+            android:id="@+id/corrects_Tap"/>
+
+        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+            style="@style/resultsTextStyle"
+            android:id="@+id/mistakes_Tap"/>
+
+        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+            style="@style/resultsTextStyle"
+            android:id="@+id/omissions_Tap"/>
+
+        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+            style="@style/resultsTextStyle"
+            android:id="@+id/score_Tap"/>
+
+        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+            style="@style/resultsTextStyle"
+            android:id="@+id/total_time_Tap"/>
+
+        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+            style="@style/resultsTextStyle"
+            android:id="@+id/persevering_mistakes_Tap"/>
+
+        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+            style="@style/resultsTextStyle"
+            android:id="@+id/completed_categories_Tap"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
+        <ProgressBar
+            android:id="@+id/pbPercentage_Tap"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="@dimen/pbar_width"
+            android:layout_height="@dimen/pbar_height"
+            android:max="100"
+            android:progressDrawable="@drawable/progress_bar_results" />
+
+        <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+            android:id="@+id/percentage_graphic_Tap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textSize="@dimen/percentage_graphic_size"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+</RelativeLayout>

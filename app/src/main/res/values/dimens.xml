@@ -1,0 +1,47 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">12dp</dimen>
+    <dimen name="space_question">12dp</dimen>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="margin_button_text">10dp</dimen>
+    <dimen name="margin_question_answer">14dp</dimen>
+    <dimen name="space_answers">12dp</dimen>
+
+    <!-- Dimensiones para pantalla de Enunciados de las tareas-->
+    <dimen name="statement_title_size">47sp</dimen>
+    <dimen name="statement_text_size">17sp</dimen>
+    <dimen name="spacing_extra_text">2dp</dimen>
+    <dimen name="statement_text_margin">50dp</dimen>
+
+    <!-- Dimensiones para pantalla de Resultados de las tareas-->
+    <dimen name="results_title_size">36sp</dimen>
+    <dimen name="results_title_margin_text">2dp</dimen>
+    <dimen name="results_text_size">19sp</dimen>
+    <dimen name="results_text_margin">0dp</dimen>
+    <dimen name="pbar_width">100dp</dimen>
+    <dimen name="pbar_height">160dp</dimen>
+    <dimen name="percentage_graphic_size">30sp</dimen>
+
+    <!-- Dimensiones propias de la tarea Textmemory-->
+    <dimen name="text_to_memorize_size">17sp</dimen>
+    <dimen name="text_to_memorize_margin">22dp</dimen>
+    <dimen name="text_to_memorize_spacing_extra">4dp</dimen>
+
+    <!-- Dimensiones propias de la tarea Timereaction-->
+    <dimen name="help_treaction_text_size">18sp</dimen>
+    <dimen name="help_treacion_spacing_extra">1dp</dimen>
+
+    <!-- Dimensiones propias de la tarea Tap-->
+    <dimen name="tap_button_width">100dp</dimen>
+    <dimen name="tap_button_height">40dp</dimen>
+    <dimen name="tap_textSize_button">13sp</dimen>
+    <dimen name="tap_margin_button">16dp</dimen>
+    <dimen name="tap_margin_word_result">18dp</dimen>
+    <dimen name="tap_size_word_result">18sp</dimen>
+
+    <!-- Dimensiones propias de la tarea Flexibility-->
+    <dimen name="flex_textSize_circle">28sp</dimen>
+    <dimen name="flex_margin_circle_arrows">6dp</dimen>
+    <dimen name="flex_margin_arrows">25dp</dimen>
+</resources>

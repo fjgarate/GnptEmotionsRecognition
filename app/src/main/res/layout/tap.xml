@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/BackColorTap">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/button_exit_selector"
+        android:onClick="toResults"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <Button
+            style="@style/buttonsTapStyle"
+            android:id="@+id/button1_tap"
+            android:text="@string/monkey"
+            android:onClick="userAnswerbtn1"/>
+        <Button
+            style="@style/buttonsTapStyle"
+            android:id="@+id/button2_tap"
+            android:layout_toRightOf="@+id/button1_tap"
+            android:layout_toEndOf="@+id/button1_tap"
+            android:text="@string/comb"
+            android:onClick="userAnswerbtn2"/>
+        <Button
+            style="@style/buttonsTapStyle"
+            android:id="@+id/button3_tap"
+            android:layout_toRightOf="@+id/button2_tap"
+            android:layout_toEndOf="@id/button2_tap"
+            android:text="@string/plum"
+            android:onClick="userAnswerbtn3"/>
+
+        <TextView
+            android:id="@+id/textview_result_tap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button2_tap"
+            android:layout_alignLeft="@+id/button1_tap"
+            android:layout_alignStart="@+id/button1_tap"
+            android:layout_alignRight="@+id/button3_tap"
+            android:layout_alignEnd="@+id/button3_tap"
+            android:layout_margin="@dimen/tap_margin_word_result"
+            android:gravity="center"
+            android:textSize="@dimen/tap_size_word_result"
+            android:textColor="@android:color/holo_green_dark"
+            android:text="CORRECTO"/>
+
+        <Button
+            style="@style/buttonsTapStyle"
+            android:id="@+id/button4_tap"
+            android:layout_below="@+id/textview_result_tap"
+            android:layout_toRightOf="@+id/button1_tap"
+            android:layout_toEndOf="@id/button1_tap"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

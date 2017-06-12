@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+
+    <item android:drawable="@drawable/reloj_animado1"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado2"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado3"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado4"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado5"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado6"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado7"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado8"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado9"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado10"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado11"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado12"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/reloj_animado13"
+        android:duration="300"/>
+
+
+</animation-list>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="BackColorMemory">#66CCFF</color>
+    <color name="BackColorAtention">#FFCC00</color>
+    <color name="BackColorExecutive">#9ACD33</color>
+    <color name="fontTitleResult">#FFCC00</color>
+    <color name="strokeCircle">#1616FF</color>
+    <color name="fillCircle">#FDD016</color>
+    <color name="fillCircle2">#00B0F0</color>
+    <color name="BackColorTap">#2D2D86</color>
+    <color name="BackColorFlexibility">#808000</color>
+</resources>

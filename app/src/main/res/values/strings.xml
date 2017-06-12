@@ -1,0 +1,114 @@
+<resources>
+
+    <string name="app_name">GNPT</string>
+
+
+    <!-- Strings para nombres de cada tarea-->
+    <string name="textmemory1_task">TextMemory</string>
+    <string name="timereaction_task">TimeReaction</string>
+    <string name="photos_task">Photos</string>
+    <string name="textmemory2_task">TextMemory2</string>
+    <string name="tap_task">Tap tap</string>
+    <string name="flexibility_task">Flexibility</string>
+
+    <!-- Strings para títulos de las 3 categorías-->
+    <string name="title_memory">Memoria</string>
+    <string name="title_attention">Atención</string>
+    <string name="title_executive_functions">Funciones ejecutivas</string>
+
+    <!-- Strings para Login-->
+    <string name="login_editText">Nombre de usuario</string>
+    <string name="login_button">TAREAS</string>
+
+    <!-- Strings para Textmemory-->
+    <string name="statement_textmemory1">A continuación se le presentará un texto en la pantalla.\nLéalo atentamente y memorícelo.\nPosteriormente se le realizarán una serie de preguntas sobre dicho texto, elija la opción que considera acertada.</string>
+    <string name="statement_textmemory2">A continuación se presentarán las preguntas relacionadas a la Historia que se le presentó hace un rato ¿La recuerdas?</string>
+    <string name="text_textmemory">MARIO TIENE 25 AÑOS, ES DE MADRID Y TIENE DOS COMPAÑEROS DE PISO:
+        PABLO QUE TIENE 24 AÑOS, ES DE HUELVA Y SE DEDICABA A VENDER MUEBLES Y LUISA QUE TIENE 26 AÑOS,
+        ES DE MURCIA Y TRABAJABA DE ADMINISTRATIVA EN UNA EMPRESA. LOS TRES SE LLEVAN MUY BIEN Y TODOS
+        LOS SÁBADOS VAN AL MERCADO JUNTOS PARA COMPRAR LA COMIDA DEL DOMINGO: ARROZ CON POLLO, HUEVOS CON PATATAS Y FLAN</string>
+
+    <string name="button_contentDescription">checkButton</string>
+
+    <string name="questionTM_1">¿Qué día de la semana comen todos juntos?</string>
+    <string name="answerTM_11">Sábado</string>
+    <string name="answerTM_12">Lunes</string>
+    <string name="answerTM_13">Domingo</string>
+    <string name="answerTM_14">Martes</string>
+
+    <string name="questionTM_2">¿Cuál era la profesión de Pablo?</string>
+    <string name="answerTM_21">Médico</string>
+    <string name="answerTM_22">Profesor de instituto</string>
+    <string name="answerTM_23">Vendedor de muebles</string>
+    <string name="answerTM_24">Administrativo en una empresa</string>
+
+    <string name="questionTM_3">¿A dónde van a comprar?</string>
+    <string name="answerTM_31">Supermercado</string>
+    <string name="answerTM_32">Mercado</string>
+    <string name="answerTM_33">Hipermercado</string>
+    <string name="answerTM_34">Tienda de Barrio</string>
+
+    <string name="questionTM_4">¿Cómo se llamaban los tres compañeros de piso?</string>
+    <string name="answerTM_41">Manuel, Pedro y Lucía</string>
+    <string name="answerTM_42">Mario, Patricia y Sonia</string>
+    <string name="answerTM_43">Alberto, Rubén y Elena</string>
+    <string name="answerTM_44">Mario, Pablo y Luisa</string>
+
+    <string name="questionTM_5">¿Cuántos años tiene Luisa?</string>
+    <string name="answerTM_51">25</string>
+    <string name="answerTM_52">24</string>
+    <string name="answerTM_53">26</string>
+    <string name="answerTM_54">23</string>
+
+    <string name="questionTM_6">¿Qué día de la semana van a hacer la compra?</string>
+    <string name="answerTM_61">Lunes</string>
+    <string name="answerTM_62">Sábado</string>
+    <string name="answerTM_63">Domingo</string>
+    <string name="answerTM_64">Martes</string>
+
+    <string name="questionTM_7">¿Cuál es el menú de la comida?</string>
+    <string name="answerTM_71">Arroz con pollo, huevos con chorizo y flan</string>
+    <string name="answerTM_72">Arroz con pollo, huevos con patatas y natillas</string>
+    <string name="answerTM_73">Arroz con pollo, huevos con patatas y flan</string>
+    <string name="answerTM_74">Arroz con tomate, huevos con jamón y natillas</string>
+
+    <string name="questionTM_8">¿De dónde es Pablo?</string>
+    <string name="answerTM_81">Huelva</string>
+    <string name="answerTM_82">Madrid</string>
+    <string name="answerTM_83">Murcia</string>
+    <string name="answerTM_84">Barcelona</string>
+
+    <!-- Strings para Resultados-->
+    <string name="title_results">RESULTADOS</string>
+    <string name="percentage">Porcentaje:</string>
+    <string name="corrects">Aciertos:</string>
+    <string name="mistakes">Errores:</string>
+    <string name="omissions">Omisiones:</string>
+    <string name="score">Puntuación:</string>
+    <string name="time">Tiempo:</string>
+    <string name="average_time">Tiempo medio de reacción:</string>
+    <string name="persevering_mistakes">Errores perseverativos:</string>
+    <string name="completed_categories">Categorías completadas:</string>
+
+    <!-- Strings para TimeReaction-->
+    <string name="statement_timereaction">A continuación se iluminarán unos círculos.\nHaga clic en los círculos cuando se iluminen</string>
+    <string name="help_timereaction">Haga clic en los círculos que se iluminen.\nHágalo lo más rápido posible.</string>
+
+    <!-- Strings para Photos-->
+    <string name="statement_photos">Vas a ver una foto.\nIntenta fijarte en todos los elementos\nya que habrá uno que se modificará.\nAhora verás un ejemplo.</string>
+
+    <!-- Strings para Tap-->
+    <string name="statement_tap">Ha de relacionar las palabras que aparecen en la parte inferior de la pantalla con una de las tres palabras de la parte superior.\nEl ordenador le indicará si la relación es correcta.\nSu objetivo es hacer el mayor número de relaciones correctas posible.</string>
+    <string name="monkey">MONO</string>
+    <string name="comb">PEINE</string>
+    <string name="plum">CIRUELA</string>
+    <string name="correct_word">CORRECTO</string>
+    <string name="wrong_word">INCORRECTO</string>
+
+    <!-- Strings para Flexibility-->
+    <string name="statement_flexibility">A continuación irás viendo unos números en el centro de la pantalla.\nCuando veas un número inferior a 5, debes pulsar sobre la flecha de la izquierda;\nSi el número que aparece es superior a 5, debes de marcar la flecha de la derecha.\nCuando el número que aparezca sea el 5, marca el círculo rojo.</string>
+    <string name="permissions_camera_needed_explanation">This app requires the permission to access your camera to be able to gather facial images for processing. No video is saved or used other than for immediate emotion processing.</string>
+    <string name="permissions_storage_needed_explanation">This app requires the permission to access your external storage to save screenshots.</string>
+    <string name="insufficient_permissions">Insufficient Permissions</string>
+    <string name="understood">Understood</string>
+</resources>

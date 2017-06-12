@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/button_exit_selector"
+        android:onClick="toResults"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/button_help_selector"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="toHelp"/>
+
+    <ImageButton
+        android:id="@+id/points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/points"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
+
+    <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+        android:id="@+id/text_points_TR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@android:color/holo_red_light"
+        android:background="@android:color/transparent"
+        android:textSize="24sp"
+        android:layout_alignLeft="@+id/points"
+        android:layout_alignRight="@+id/points"
+        android:layout_alignTop="@+id/points"
+        android:layout_alignBottom="@+id/points"
+        android:gravity="center_horizontal"
+        android:paddingTop="3dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/circle3_timereaction"
+            style="@style/circlesTRStyle"
+            android:layout_below="@+id/circle1_timereaction"/>
+
+        <ImageButton
+            android:id="@+id/circle1_timereaction"
+            style="@style/circlesTRStyle"
+            android:layout_toRightOf="@+id/circle3_timereaction"
+            android:layout_marginRight="30dp"/>
+
+        <ImageButton
+            android:id="@+id/circle5_timereaction"
+            style="@style/circlesTRStyle"
+            android:layout_toRightOf="@+id/circle3_timereaction"
+            android:layout_below="@+id/circle3_timereaction"
+            android:layout_marginRight="30dp"/>
+
+        <ImageButton
+            android:id="@+id/circle2_timereaction"
+            style="@style/circlesTRStyle"
+            android:layout_toRightOf="@+id/circle1_timereaction"/>
+
+        <ImageButton
+            android:id="@+id/circle6_timereaction"
+            style="@style/circlesTRStyle"
+            android:layout_toRightOf="@+id/circle5_timereaction"
+            android:layout_below="@+id/circle3_timereaction"/>
+
+        <ImageButton
+            android:id="@+id/circle4_timereaction"
+            style="@style/circlesTRStyle"
+            android:layout_toRightOf="@+id/circle2_timereaction"
+            android:layout_below="@+id/circle2_timereaction"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

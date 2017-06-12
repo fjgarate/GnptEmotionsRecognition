@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">32dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Dimensiones para enunciados de tareas-->
+    <dimen name="statement_title_size">75sp</dimen>
+    <dimen name="statement_text_size">27sp</dimen>
+    <dimen name="spacing_extra_text">5dp</dimen>
+    <dimen name="statement_text_margin">160dp</dimen>
+
+    <!-- Dimensiones para pantalla de Resultados de las tareas-->
+    <dimen name="results_title_size">64sp</dimen>
+    <dimen name="results_title_margin_text">2dp</dimen>
+    <dimen name="results_text_size">28sp</dimen>
+    <dimen name="results_text_margin">3dp</dimen>
+    <dimen name="pbar_width">175dp</dimen>
+    <dimen name="pbar_height">280dp</dimen>
+    <dimen name="percentage_graphic_size">48sp</dimen>
+
+    <!-- Dimensiones propias de Textmemory-->
+    <dimen name="text_to_memorize_size">27sp</dimen>
+    <dimen name="text_to_memorize_margin">60dp</dimen>
+    <dimen name="text_to_memorize_spacing_extra">6dp</dimen>
+
+    <!-- Dimensiones propias de la tarea Timereaction-->
+    <dimen name="help_treaction_text_size">24sp</dimen>
+    <dimen name="help_treacion_spacing_extra">3dp</dimen>
+
+    <!-- Dimensiones propias de la tarea Tap-->
+    <dimen name="tap_button_width">150dp</dimen>
+    <dimen name="tap_button_height">60dp</dimen>
+    <dimen name="tap_textSize_button">18sp</dimen>
+    <dimen name="tap_margin_button">28dp</dimen>
+    <dimen name="tap_margin_word_result">30dp</dimen>
+    <dimen name="tap_size_word_result">30sp</dimen>
+
+    <!-- Dimensiones propias de la tarea Flexibility-->
+    <dimen name="flex_textSize_circle">45sp</dimen>
+    <dimen name="flex_margin_circle_arrows">55dp</dimen>
+    <dimen name="flex_margin_arrows">40dp</dimen>
+</resources>

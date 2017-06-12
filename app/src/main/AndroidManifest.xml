@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="gnpt.app.fcomediavilla.com.gnpt">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        tools:replace="android:allowBackup,android:label"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".Login"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".Initial"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".StatementTM1"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".StatementTM2"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".Clock"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".Questions"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".ResultsTM"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".StatementTR"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".TimeReaction"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".HelpTR"
+            android:theme="@android:style/Theme.Holo.Dialog"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".ResultsTR"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".StatementPH"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".Photos"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".ResultsPH"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".StatementTap"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".Tap"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".ResultsTap"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".StatementFlex"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".Flexibility"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".ResultsFlex"
+            android:screenOrientation="landscape">
+        </activity>
+
+    </application>
+
+</manifest>

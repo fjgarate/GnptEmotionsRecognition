@@ -1,0 +1,223 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <!-- Estilo texto título de tarea -->
+    <style name="titleTaskStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/statement_title_size</item>
+    </style>
+
+    <!-- Estilo texto enunciado de tarea -->
+    <style name="statementTaskStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/statement_text_size</item>
+        <item name="android:lineSpacingExtra">@dimen/spacing_extra_text</item>
+        <item name="android:layout_marginRight">@dimen/statement_text_margin</item>
+        <item name="android:layout_marginEnd">@dimen/statement_text_margin</item>
+    </style>
+
+    <!-- Estilo botón Continuar en enunciado de tarea -->
+    <style name="StatementContinueButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:onClick">continuar</item>
+    </style>
+
+    
+    
+    <!-- Estilo layout que contiene un botón con su correspondiente respuesta en Textmemory-->
+    <style name="layoutAnswerTMStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!-- Estilo preguntas Textmemory para pantallas pequeñas-->
+    <style name="questionTMStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- Espacio entre pregunta y respuesta Textmemory para pantallas tamaño móvil-->
+    <style name="spaceQuestionTMStyle">
+        <item name="android:layout_height">14dp</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <!-- Estilo botones de respuesta Textmemory para pantallas pequeñas-->
+    <style name="checkButtonStyle">
+        <item name="android:layout_width">29dp</item>
+        <item name="android:layout_height">21dp</item>
+        <item name="android:padding">@dimen/zero</item>
+        <item name="android:background">@drawable/checkbox_off</item>
+        <item name="android:contentDescription">@string/button_contentDescription</item>
+    </style>
+
+    <!-- Estilo respuestas Textmemory para pantallas pequeñas-->
+    <style name="answersTMStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/margin_button_text</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <!-- Espacio entre respuestas Textmemory para pantallas tamaño móvil-->
+    <style name="spaceAnswersTMStyle">
+        <item name="android:layout_height">12dp</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+
+    <!-- Estilo preguntas Textmemory para pantallas a partir de 350dp de ancho mínimo-->
+    <style name="questionTMStyle350">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">21sp</item>
+    </style>
+
+    <!-- Estilo botones de respuesta Textmemory para pantallas a partir de 350dp de ancho mínimo-->
+    <style name="checkButtonStyle350">
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">31dp</item>
+        <item name="android:padding">@dimen/zero</item>
+        <item name="android:background">@drawable/checkbox_off</item>
+        <item name="android:contentDescription">@string/button_contentDescription</item>
+    </style>
+
+    <!-- Estilo respuestas Textmemory para pantallas a partir de 350dp de ancho mínimo-->
+    <style name="answersTMStyle350">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/margin_button_text</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+
+
+    <!-- Estilo preguntas Textmemory para pantallas a partir de 600dp de ancho mínimo-->
+    <style name="questionTMStyle600">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <!-- Espacio entre pregunta y respuesta Textmemory para pantallas tamaño tablet-->
+    <style name="spaceQuestionTMStyle600">
+        <item name="android:layout_height">22dp</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <!-- Estilo botones de respuesta Textmemory para pantallas a partir de 600dp de ancho mínimo-->
+    <style name="checkButtonStyle600">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">43dp</item>
+        <item name="android:padding">@dimen/zero</item>
+        <item name="android:background">@drawable/checkbox_off</item>
+        <item name="android:contentDescription">@string/button_contentDescription</item>
+    </style>
+
+    <!-- Estilo respuestas Textmemory para pantallas a partir de 600dp de ancho mínimo-->
+    <style name="answersTMStyle600">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/margin_button_text</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <!-- Espacio entre respuestas Textmemory para pantallas tamaño tablet-->
+    <style name="spaceAnswersTMStyle600">
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+
+    <!-- Estilo preguntas Textmemory para pantallas a partir de 720dp de ancho mínimo-->
+    <style name="questionTMStyle720">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!-- Estilo botones de respuesta Textmemory para pantallas a partir de 720dp de ancho mínimo-->
+    <style name="checkButtonStyle720">
+        <item name="android:layout_width">67dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:padding">@dimen/zero</item>
+        <item name="android:background">@drawable/checkbox_off</item>
+        <item name="android:contentDescription">@string/button_contentDescription</item>
+    </style>
+
+    <!-- Estilo respuestas Textmemory para pantallas a partir de 720dp de ancho mínimo-->
+    <style name="answersTMStyle720">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/margin_button_text</item>
+        <item name="android:textSize">29sp</item>
+    </style>
+
+    <!-- Estilo texto para pantallas de Resultados-->
+    <style name="resultsTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/results_text_size</item>
+        <item name="android:layout_marginTop">@dimen/results_text_margin</item>
+        <item name="android:layout_marginBottom">@dimen/results_text_margin</item>
+    </style>
+
+
+    <!-- Estilo círculos Timereaction para pantallas pequeñas-->
+    <style name="circlesTRStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/circle_timereaction</item>
+        <item name="android:onClick">circlePressed</item>
+    </style>
+
+
+
+    <!-- Estilo botones rectangulares de Photos-->
+    <style name="rectangleButtonsPHStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <!-- Estilo botones de Tap-->
+    <style name="buttonsTapStyle">
+        <item name="android:layout_width">@dimen/tap_button_width</item>
+        <item name="android:layout_height">@dimen/tap_button_height</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textSize">@dimen/tap_textSize_button</item>
+        <item name="android:layout_marginRight">@dimen/tap_margin_button</item>
+        <item name="android:layout_marginEnd">@dimen/tap_margin_button</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+</resources>
