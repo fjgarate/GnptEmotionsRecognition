@@ -7,19 +7,29 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.affectiva.android.affdex.sdk.Frame;
+import com.affectiva.android.affdex.sdk.detector.CameraDetector;
+import com.affectiva.android.affdex.sdk.detector.Detector;
+import com.affectiva.android.affdex.sdk.detector.Face;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
  * Created by SalmonManin on 27/02/2017.
  */
 
-public class TimeReaction extends AppCompatActivity {
+public class TimeReaction extends AppCompatActivity implements CameraDetector.CameraEventListener,Detector.ImageListener{
 
     ImageButton circle1, circle2, circle3, circle4, circle5, circle6;
     GradientDrawable backCircle1, backCircle2, backCircle3, backCircle4, backCircle5, backCircle6;
@@ -31,7 +41,12 @@ public class TimeReaction extends AppCompatActivity {
     private AsyncTask myTask;
     boolean cancelation = false;
     ArrayList<Double> tReaction;
-
+    //Affectiva
+    int previewWidth = 0;
+    int previewHeight = 0;
+    RelativeLayout mainLayout;
+    CameraDetector detector;
+    SurfaceView cameraPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +76,39 @@ public class TimeReaction extends AppCompatActivity {
 
         points = (TextView) findViewById(R.id.text_points_TR);
 
+
+
+        // Affectiva
+        cameraPreview = new SurfaceView(this) {
+            @Override
+            public void onMeasure(int widthSpec, int heightSpec) {
+                // int measureWidth = MeasureSpec.getSize(widthSpec);
+                // int measureHeight = MeasureSpec.getSize(heightSpec);
+                int width = 220;
+                int height = 220;
+
+                setMeasuredDimension(width,height);
+            }
+        };
+        mainLayout = (RelativeLayout) findViewById(R.id.time_reaction_main);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+        cameraPreview.setLayoutParams(params);
+        mainLayout.addView(cameraPreview,0);
+        detector = new CameraDetector(this, CameraDetector.CameraType.CAMERA_FRONT, cameraPreview);
+        detector.setDetectSmile(true);
+        detector.setDetectAge(true);
+        detector.setDetectEthnicity(true);
+        detector.setImageListener(this);
+        detector.setOnCameraEventListener(this);
+        try {
+            detector.start();
+        } catch (Exception e) {
+            Log.i("Prueba" , "::: Pinta:"+e.getMessage());
+
+        }
         myTask = new Flujo().execute();
+
 
     }
 
@@ -312,6 +359,86 @@ public class TimeReaction extends AppCompatActivity {
             Toast toast = Toast.makeText(getApplicationContext(), "Cancelado", Toast.LENGTH_LONG);
             toast.show();
 
+        }
+        //Affectiva
+    }
+
+    //Affectiva
+    @SuppressWarnings("SuspiciousNameCombination")
+    @Override
+    public void onCameraSizeSelected(int width, int height, Frame.ROTATE rotate) {
+        Log.i("Prueba" , "::: onCameraSizeSelected:");
+        if (rotate == Frame.ROTATE.BY_90_CCW || rotate == Frame.ROTATE.BY_90_CW) {
+            previewWidth = height;
+            previewHeight = width;
+        } else {
+            previewHeight = height;
+            previewWidth = width;
+        }
+        cameraPreview.requestLayout();
+    }
+
+    @Override
+    public void onImageResults(List<Face> list, Frame frame, float v) {
+        if (list == null)
+            return;
+        if (list.size() == 0) {
+        /*    smileTextView.setText("NO FACE");
+            ageTextView.setText("");
+            ethnicityTextView.setText("");*/
+            Log.i("Login" , "::: NO FACE");
+        } else {
+            Face face = list.get(0);
+            Log.i("Login" , "::: SMILE "+ String.format("SMILE\n%.2f",face.expressions.getSmile()));
+            //    smileTextView.setText(String.format("SMILE\n%.2f",face.expressions.getSmile()));
+           /* switch (face.appearance.getAge()) {
+                case AGE_UNKNOWN:
+                    ageTextView.setText("");
+                    break;
+                case AGE_UNDER_18:
+                    ageTextView.setText(R.string.age_under_18);
+                    break;
+                case AGE_18_24:
+                    ageTextView.setText(R.string.age_18_24);
+                    break;
+                case AGE_25_34:
+                    ageTextView.setText(R.string.age_25_34);
+                    break;
+                case AGE_35_44:
+                    ageTextView.setText(R.string.age_35_44);
+                    break;
+                case AGE_45_54:
+                    ageTextView.setText(R.string.age_45_54);
+                    break;
+                case AGE_55_64:
+                    ageTextView.setText(R.string.age_55_64);
+                    break;
+                case AGE_65_PLUS:
+                    ageTextView.setText(R.string.age_over_64);
+                    break;
+            }
+
+            switch (face.appearance.getEthnicity()) {
+                case UNKNOWN:
+                    ethnicityTextView.setText("");
+                    break;
+                case CAUCASIAN:
+                    ethnicityTextView.setText(R.string.ethnicity_caucasian);
+                    break;
+                case BLACK_AFRICAN:
+                    ethnicityTextView.setText(R.string.ethnicity_black_african);
+                    break;
+                case EAST_ASIAN:
+                    ethnicityTextView.setText(R.string.ethnicity_east_asian);
+                    break;
+                case SOUTH_ASIAN:
+                    ethnicityTextView.setText(R.string.ethnicity_south_asian);
+                    break;
+                case HISPANIC:
+                    ethnicityTextView.setText(R.string.ethnicity_hispanic);
+                    break;
+            }
+*/
         }
     }
 

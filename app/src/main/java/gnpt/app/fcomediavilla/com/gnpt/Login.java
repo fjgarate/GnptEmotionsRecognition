@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
@@ -64,14 +65,14 @@ public class Login extends AppCompatActivity implements CameraDetector.CameraEve
       //  CameraDetector detector = new CameraDetector(this, CameraDetector.CameraType.CAMERA_FRONT,new SurfaceView(this) );
         mainLayout = (LinearLayout) findViewById(R.id.login_main);
 
-
-        cameraPreview = new SurfaceView(this) {
+        cameraPreview = new SurfaceView(this);
+      /*  cameraPreview = new SurfaceView(this) {
             @Override
             public void onMeasure(int widthSpec, int heightSpec) {
                // int measureWidth = MeasureSpec.getSize(widthSpec);
                // int measureHeight = MeasureSpec.getSize(heightSpec);
-                 int measureWidth = 220;
-                 int measureHeight = 220;
+                 int measureWidth = 10;
+                 int measureHeight = 10;
                 int width;
                 int height;
                 if (previewHeight == 0 || previewWidth == 0) {
@@ -91,10 +92,12 @@ public class Login extends AppCompatActivity implements CameraDetector.CameraEve
                 }
                 setMeasuredDimension(width,height);
             }
-        };
+        };*/
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
         cameraPreview.setLayoutParams(params);
+        cameraPreview.getLayoutParams().width = 1;
+        cameraPreview.getLayoutParams().height = 1;
         mainLayout.addView(cameraPreview,0);
         detector = new CameraDetector(this, CameraDetector.CameraType.CAMERA_FRONT, cameraPreview);
         detector.setDetectSmile(true);
