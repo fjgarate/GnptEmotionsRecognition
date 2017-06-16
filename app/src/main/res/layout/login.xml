@@ -8,22 +8,58 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:gravity="center">
+    android:gravity="center"
+    android:weightSum="1">
 
-    <EditText
-        android:layout_marginLeft="200dp"
-        android:layout_marginRight="200dp"
-        android:layout_marginBottom="30dp"
-        android:id="@+id/login_user"
+    <TextView
+        android:id="@+id/login_bienvenida"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/login_editText" />
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.16"
+        android:height="50dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/login_bienvenida"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/login_info"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:height="20dp"
+        android:text="@string/login_info"
+        android:textAlignment="center"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/login_insert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:height="20dp"
+        android:text="@string/login_insert"
+        android:textAlignment="center"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/login_user"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/login_editText"
+        android:textAlignment="center"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:onClick="toIndex"
         android:text="@string/login_button"
-        android:onClick="toIndex"/>
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
 
 </LinearLayout>

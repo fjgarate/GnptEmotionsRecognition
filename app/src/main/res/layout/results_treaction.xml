@@ -40,7 +40,6 @@
                 <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
                     style="@style/resultsTextStyle"
                     android:id="@+id/corrects_TR"/>
-
             </TableRow>
 
             <TableRow>
@@ -71,8 +70,27 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginEnd="10dp"
                     android:id="@+id/average_time_TR"/>
+                <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+                    style="@style/resultsTextStyle"
+                    android:id="@+id/averageAtt_TR"/>
             </TableRow>
 
+            <TableRow>
+                <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+                    style="@style/resultsTextStyle"
+                    android:id="@+id/averageEng_TR"/>
+                <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+                    style="@style/resultsTextStyle"
+                    android:id="@+id/averageVal_TR"/>
+            </TableRow>
+            <TableRow>
+                <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+                    style="@style/resultsTextStyle"
+                    android:id="@+id/numFramesDetected_TR"/>
+                <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+                    style="@style/resultsTextStyle"
+                    android:id="@+id/numFramesNoFace_TR"/>
+            </TableRow>
         </TableLayout>
 
     </LinearLayout>

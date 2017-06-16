@@ -26,6 +26,8 @@ import com.affectiva.android.affdex.sdk.Frame.ROTATE;
 import com.affectiva.android.affdex.sdk.detector.CameraDetector;
 import com.affectiva.android.affdex.sdk.detector.Detector;
 import com.affectiva.android.affdex.sdk.detector.Face;
+import com.affectiva.android.affdex.sdk.detector.Face.FaceQuality;
+
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -33,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,13 +59,33 @@ public class Login extends AppCompatActivity implements CameraDetector.CameraEve
     private static final int EXTERNAL_STORAGE_PERMISSIONS_REQUEST = 73;
     private boolean cameraPermissionsAvailable = false;
     private boolean storagePermissionsAvailable = false;
+
+    // detecting face brightness and orientation
+    float bright, yaw, roll, pitch;
+    boolean firstPosition = true;
+    boolean firstBrightness = true;
+    boolean firstShadow = true;
+    CharSequence textPosition = "¡Tu posición es perfecta!";
+    CharSequence textBrightness = "¡Tu iluminación es perfecta!";
+    CharSequence textShadow = "Tu iluminación es mala. Busca una fuente de luz.";
+    int duration = Toast.LENGTH_SHORT;
+
+    // detecting appearance
+    CharSequence age, ethnicity, glasses, gender;
+    int countAppearance = 0;
+
+    // detecting eye closure, widen and mouth widen expressions
+    int countEye = 0;
+    int countMouth = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         checkForCameraPermissions();
         editText = (EditText) findViewById(R.id.login_user);
-      //  CameraDetector detector = new CameraDetector(this, CameraDetector.CameraType.CAMERA_FRONT,new SurfaceView(this) );
+        //  CameraDetector detector = new CameraDetector(this, CameraDetector.CameraType.CAMERA_FRONT,new SurfaceView(this) );
         mainLayout = (LinearLayout) findViewById(R.id.login_main);
 
         cameraPreview = new SurfaceView(this);
@@ -99,17 +122,26 @@ public class Login extends AppCompatActivity implements CameraDetector.CameraEve
         cameraPreview.getLayoutParams().width = 1;
         cameraPreview.getLayoutParams().height = 1;
         mainLayout.addView(cameraPreview,0);
+
         detector = new CameraDetector(this, CameraDetector.CameraType.CAMERA_FRONT, cameraPreview);
-        detector.setDetectSmile(true);
         detector.setDetectAge(true);
+        detector.setDetectGender(true);
+        detector.setDetectGlasses(true);
         detector.setDetectEthnicity(true);
+
+        detector.setDetectEyeWiden(true);
+        detector.setDetectEyeClosure(true);
+        detector.setDetectMouthOpen(true);
+        detector.setDetectAttention(true);
+        detector.setDetectEngagement(true);
+        detector.setDetectValence(true);
+
         detector.setImageListener(this);
         detector.setOnCameraEventListener(this);
         try {
             detector.start();
         } catch (Exception e) {
             Log.i("Prueba" , "::: Pinta:"+e.getMessage());
-
         }
         Log.i("Prueba" , "::: Pinta:");
 
@@ -135,11 +167,7 @@ public class Login extends AppCompatActivity implements CameraDetector.CameraEve
         detector.setDetectEthnicity(true);
         detector.setImageListener(this);
         detector.setOnCameraEventListener(this);
-    }
-*/ Log.i("Prueba" , "::: Pinta:");
-       // detector = new CameraDetector(this, CameraDetector.CameraType.CAMERA_FRONT, cameraPreview);
-       // detector.setDetectSmile(true);
-
+    }*/
     }
 
 
@@ -158,7 +186,6 @@ public class Login extends AppCompatActivity implements CameraDetector.CameraEve
             editor.commit();
             numSesion = 1;
             Log.i("Prueba" , "::: idSesion actual: " + numSesion);
-
         }
         else{
             SharedPreferences.Editor editor = prefs.edit();
@@ -168,12 +195,9 @@ public class Login extends AppCompatActivity implements CameraDetector.CameraEve
             Log.i("Prueba" , "::: idSesion actual: " + numSesion);
         }
 
-
-
         //Vamos al index de tareas
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
-
     }
     @SuppressWarnings("SuspiciousNameCombination")
     @Override
@@ -191,69 +215,172 @@ public class Login extends AppCompatActivity implements CameraDetector.CameraEve
 
     @Override
     public void onImageResults(List<Face> list, Frame frame, float v) {
+        Context context = getApplicationContext();
         if (list == null)
             return;
         if (list.size() == 0) {
-        /*    smileTextView.setText("NO FACE");
-            ageTextView.setText("");
-            ethnicityTextView.setText("");*/
-            Log.i("Login" , "::: NO FACE");
+            Log.i("Login" , ": NO FACE");
+            firstShadow = true;
+            firstPosition = true;
+
         } else {
+
             Face face = list.get(0);
-            Log.i("Login" , "::: SMILE "+ String.format("SMILE\n%.2f",face.expressions.getSmile()));
-        //    smileTextView.setText(String.format("SMILE\n%.2f",face.expressions.getSmile()));
-           /* switch (face.appearance.getAge()) {
-                case AGE_UNKNOWN:
-                    ageTextView.setText("");
-                    break;
-                case AGE_UNDER_18:
-                    ageTextView.setText(R.string.age_under_18);
-                    break;
-                case AGE_18_24:
-                    ageTextView.setText(R.string.age_18_24);
-                    break;
-                case AGE_25_34:
-                    ageTextView.setText(R.string.age_25_34);
-                    break;
-                case AGE_35_44:
-                    ageTextView.setText(R.string.age_35_44);
-                    break;
-                case AGE_45_54:
-                    ageTextView.setText(R.string.age_45_54);
-                    break;
-                case AGE_55_64:
-                    ageTextView.setText(R.string.age_55_64);
-                    break;
-                case AGE_65_PLUS:
-                    ageTextView.setText(R.string.age_over_64);
-                    break;
+            bright = face.qualities.getBrightness();
+            yaw = face.measurements.orientation.getYaw();
+            roll = face.measurements.orientation.getRoll();
+            pitch = face.measurements.orientation.getPitch();
+
+            //Log.i("Login" , ": ORIENTATION "+ String.format("YAW %.2f",face.measurements.orientation.getYaw()));
+            //Log.i("Login" , ": ORIENTATION "+ String.format("ROLL %.2f",face.measurements.orientation.getRoll()));
+            //Log.i("Login" , ": ORIENTATION "+ String.format("PITCH %.2f",face.measurements.orientation.getPitch()));
+
+            //Log.i("Login" , ": BRIGHTNESS "+ String.format(" %.2f",face.qualities.getBrightness()));
+
+            Log.i("Login" , ": ENGAGEMENT"+ String.format(" %.2f",face.emotions.getEngagement()));
+            Log.i("Login" , ": VALENCE"+ String.format(" %.2f",face.emotions.getValence()));
+            Log.i("Login" , ": ATTENTION"+ String.format(" %.2f",face.expressions.getAttention()));
+
+            Log.i("Login" , ": EXPRESSION"+ String.format(" EYE CLOSURE %.2f",face.expressions.getEyeClosure()));
+            Log.i("Login" , ": EXPRESSION"+ String.format(" EYE WIDEN %.2f",face.expressions.getEyeWiden()));
+            Log.i("Login" , ": EXPRESSION"+ String.format(" MOUTH OPEN %.2f",face.expressions.getMouthOpen()));
+
+            if(face.expressions.getEyeClosure()>60){
+                countEye++;
+                if(countEye==5){
+                    CharSequence textEyesClosed = "Hemos detectado un microsueño...¿Te estás quedando dormido?";
+                    Toast toast = Toast.makeText(context, textEyesClosed, duration);
+                    toast.show();
+                    countEye = 0;
+                }
+            }
+            if(face.expressions.getMouthOpen()>60){
+                countMouth++;
+                if(countMouth==5){
+                    CharSequence textMouthOpen = "Hemos detectado un bostezo :O";
+                    Toast toast = Toast.makeText(context, textMouthOpen, duration);
+                    toast.show();
+                    countMouth = 0;
+                }
             }
 
-            switch (face.appearance.getEthnicity()) {
-                case UNKNOWN:
-                    ethnicityTextView.setText("");
-                    break;
-                case CAUCASIAN:
-                    ethnicityTextView.setText(R.string.ethnicity_caucasian);
-                    break;
-                case BLACK_AFRICAN:
-                    ethnicityTextView.setText(R.string.ethnicity_black_african);
-                    break;
-                case EAST_ASIAN:
-                    ethnicityTextView.setText(R.string.ethnicity_east_asian);
-                    break;
-                case SOUTH_ASIAN:
-                    ethnicityTextView.setText(R.string.ethnicity_south_asian);
-                    break;
-                case HISPANIC:
-                    ethnicityTextView.setText(R.string.ethnicity_hispanic);
-                    break;
+            if(Math.abs(yaw)<30 && Math.abs(roll)<15 && Math.abs(pitch)<15){
+                if(firstPosition){
+                    firstPosition = false;
+                    Toast toast = Toast.makeText(context, textPosition, duration);
+                    toast.show();
+                }
+            }else{
+                firstPosition = true;
             }
-*/
+
+            if(bright>50 && firstBrightness){
+                firstShadow = true;
+                firstBrightness = false;
+                Toast toast = Toast.makeText(context, textBrightness, duration);
+                toast.show();
+            }else if(bright<50 && firstShadow){
+                firstBrightness = true;
+                firstShadow = false;
+                Toast toast = Toast.makeText(context, textShadow, duration);
+                toast.show();
+            }
+
+            if(countAppearance<30){
+                switch (face.appearance.getAge()) {
+                    case AGE_UNKNOWN:
+                        Log.i("Login", ": APPEARANCE AGE unknown");
+                        age = "UNKNOWN";
+                        break;
+                    case AGE_UNDER_18:
+                        Log.i("Login", ": APPEARANCE AGE under 18");
+                        age = "UNDER_18";
+                        break;
+                    case AGE_18_24:
+                        Log.i("Login", ": APPEARANCE AGE between 18 and 24");
+                        age = "18_24";
+                        break;
+                    case AGE_25_34:
+                        Log.i("Login", ": APPEARANCE AGE between 25 and 34");
+                        age = "25_34";
+                        break;
+                    case AGE_35_44:
+                        Log.i("Login", ": APPEARANCE AGE between 35 and 44");
+                        age = "35_44";
+                        break;
+                    case AGE_45_54:
+                        Log.i("Login", ": APPEARANCE AGE between 45 and 54");
+                        age = "45_54";
+                        break;
+                    case AGE_55_64:
+                        Log.i("Login", ": APPEARANCE AGE between 55 and 64");
+                        age = "55_64";
+                        break;
+                    case AGE_65_PLUS:
+                        Log.i("Login", ": APPEARANCE AGE over 65");
+                        age = "OVER_65";
+                        break;
+                }
+
+                switch (face.appearance.getEthnicity()) {
+                    case UNKNOWN:
+                        Log.i("Login", ": APPEARANCE ETHNITICY unknown");
+                        ethnicity = "UNKNOWN";
+                        break;
+                    case CAUCASIAN:
+                        Log.i("Login", ": APPEARANCE ETHNITICY caucasian");
+                        ethnicity = "CAUCASIAN";
+                        break;
+                    case BLACK_AFRICAN:
+                        Log.i("Login", ": APPEARANCE ETHNITICY black african");
+                        ethnicity = "BLACK_AFRICAN";
+                        break;
+                    case EAST_ASIAN:
+                        Log.i("Login", ": APPEARANCE ETHNITICY east asian");
+                        ethnicity = "EAST_ASIAN";
+                        break;
+                    case SOUTH_ASIAN:
+                        Log.i("Login", ": APPEARANCE ETHNITICY south asian");
+                        ethnicity = "SOUTH_ASIAN";
+                        break;
+                    case HISPANIC:
+                        Log.i("Login", ": APPEARANCE ETHNITICY hispanic");
+                        ethnicity = "HISPANIC";
+                        break;
+                }
+                switch (face.appearance.getGlasses()) {
+                    case NO:
+                        Log.i("Login" , ": APPEARANCE GLASSES no");
+                        glasses = "NO";
+                        break;
+                    case YES:
+                        Log.i("Login" , ": APPEARANCE GLASSES yes");
+                        glasses = "YES";
+                        break;
+                }
+                switch (face.appearance.getGender()) {
+                    case UNKNOWN:
+                        Log.i("Login", ": APPEARANCE GENDER unknown");
+                        gender = "UNKNOWN";
+                        break;
+                    case MALE:
+                        Log.i("Login", ": APPEARANCE GENDER male");
+                        gender = "MALE";
+                        break;
+                    case FEMALE:
+                        Log.i("Login", ": APPEARANCE GENDER female");
+                        gender = "FEMALE";
+                        break;
+                }
+            }
+            countAppearance++;
+            if(countAppearance==30){
+                CharSequence textAppearances = "Edad: " + age + "\nSexo: " + gender + "\nEtnia: " + ethnicity + "\nGafas: " + glasses;
+                Toast toast = Toast.makeText(context, textAppearances, Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
     }
-
-
 
     private void checkForCameraPermissions() {
         cameraPermissionsAvailable =
@@ -336,5 +463,4 @@ public class Login extends AppCompatActivity implements CameraDetector.CameraEve
             // The callback method gets the result of the request.
         }
     }
-
 }

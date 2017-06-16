@@ -41,6 +41,14 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
     private AsyncTask myTask;
     boolean cancelation = false;
     ArrayList<Double> tReaction;
+
+    // detecting attention, enagement and valence
+    int contDetected = 0;
+    int contNoFace = 0;
+    ArrayList<Float> attention = new ArrayList<>();
+    ArrayList<Float> engagement = new ArrayList<>();
+    ArrayList<Float> valence = new ArrayList<>();
+
     //Affectiva
     int previewWidth = 0;
     int previewHeight = 0;
@@ -76,10 +84,8 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
 
         points = (TextView) findViewById(R.id.text_points_TR);
 
-
-
         // Affectiva
-        cameraPreview = new SurfaceView(this) {
+        cameraPreview = new SurfaceView(this); /*{
             @Override
             public void onMeasure(int widthSpec, int heightSpec) {
                 // int measureWidth = MeasureSpec.getSize(widthSpec);
@@ -89,16 +95,20 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
 
                 setMeasuredDimension(width,height);
             }
-        };
+        };*/
         mainLayout = (RelativeLayout) findViewById(R.id.time_reaction_main);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
         cameraPreview.setLayoutParams(params);
+        cameraPreview.getLayoutParams().width = 1;
+        cameraPreview.getLayoutParams().height = 1;
         mainLayout.addView(cameraPreview,0);
+
         detector = new CameraDetector(this, CameraDetector.CameraType.CAMERA_FRONT, cameraPreview);
-        detector.setDetectSmile(true);
-        detector.setDetectAge(true);
-        detector.setDetectEthnicity(true);
+        detector.setDetectAttention(true);
+        detector.setDetectValence(true);
+        detector.setDetectEngagement(true);
+
         detector.setImageListener(this);
         detector.setOnCameraEventListener(this);
         try {
@@ -157,6 +167,11 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
         intent.putExtra("Omissions", omission);
         intent.putExtra("Time", (int)timer);
         intent.putExtra("AverageTime", averageTime);
+        intent.putExtra("AttentionResult", attention);
+        intent.putExtra("EngagementResult", engagement);
+        intent.putExtra("ValenceResult", valence);
+        intent.putExtra("FramesDetected", contDetected);
+        intent.putExtra("FramesNoFace", contNoFace);
         startActivity(intent);
     }
 
@@ -248,6 +263,11 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
             intent.putExtra("Omissions", omission);
             intent.putExtra("Time", (int)timer);
             intent.putExtra("AverageTime", averageTime);
+            intent.putExtra("AttentionResult", attention);
+            intent.putExtra("EngagementResult", engagement);
+            intent.putExtra("ValenceResult", valence);
+            intent.putExtra("FramesDetected", contDetected);
+            intent.putExtra("FramesNoFace", contNoFace);
             startActivity(intent);
 
         }
@@ -386,59 +406,17 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
         /*    smileTextView.setText("NO FACE");
             ageTextView.setText("");
             ethnicityTextView.setText("");*/
-            Log.i("Login" , "::: NO FACE");
+            Log.i("TimeReaction" , ": NO FACE");
+            contNoFace++;
         } else {
             Face face = list.get(0);
-            Log.i("Login" , "::: SMILE "+ String.format("SMILE\n%.2f",face.expressions.getSmile()));
-            //    smileTextView.setText(String.format("SMILE\n%.2f",face.expressions.getSmile()));
-           /* switch (face.appearance.getAge()) {
-                case AGE_UNKNOWN:
-                    ageTextView.setText("");
-                    break;
-                case AGE_UNDER_18:
-                    ageTextView.setText(R.string.age_under_18);
-                    break;
-                case AGE_18_24:
-                    ageTextView.setText(R.string.age_18_24);
-                    break;
-                case AGE_25_34:
-                    ageTextView.setText(R.string.age_25_34);
-                    break;
-                case AGE_35_44:
-                    ageTextView.setText(R.string.age_35_44);
-                    break;
-                case AGE_45_54:
-                    ageTextView.setText(R.string.age_45_54);
-                    break;
-                case AGE_55_64:
-                    ageTextView.setText(R.string.age_55_64);
-                    break;
-                case AGE_65_PLUS:
-                    ageTextView.setText(R.string.age_over_64);
-                    break;
-            }
+            //attention[contador]=face.expressions.getAttention();
+            attention.add(face.expressions.getAttention());
+            engagement.add(face.emotions.getEngagement());
+            valence.add(face.emotions.getValence());
+            contDetected++;
 
-            switch (face.appearance.getEthnicity()) {
-                case UNKNOWN:
-                    ethnicityTextView.setText("");
-                    break;
-                case CAUCASIAN:
-                    ethnicityTextView.setText(R.string.ethnicity_caucasian);
-                    break;
-                case BLACK_AFRICAN:
-                    ethnicityTextView.setText(R.string.ethnicity_black_african);
-                    break;
-                case EAST_ASIAN:
-                    ethnicityTextView.setText(R.string.ethnicity_east_asian);
-                    break;
-                case SOUTH_ASIAN:
-                    ethnicityTextView.setText(R.string.ethnicity_south_asian);
-                    break;
-                case HISPANIC:
-                    ethnicityTextView.setText(R.string.ethnicity_hispanic);
-                    break;
-            }
-*/
+            Log.i("TimeReaction" , ": ENGAGEMENT "+ String.format(" \n%.2f",face.emotions.getEngagement()));
         }
     }
 
