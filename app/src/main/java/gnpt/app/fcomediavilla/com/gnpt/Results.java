@@ -27,6 +27,7 @@ public class Results {
     private int perseveringMistake;
     private int categoryCompleted;
 
+
     public Results(String idUser, String date, String idSesion, int numSesion, String task, int percentage, int correct, int mistake,
                    int omission, int score, int totalTime, double averageTime, int perseveringMistake, int categoryCompleted){
         this.idUser = idUser;

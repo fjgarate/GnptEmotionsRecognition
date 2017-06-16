@@ -17,8 +17,11 @@
     <string name="title_executive_functions">Funciones ejecutivas</string>
 
     <!-- Strings para Login-->
+    <string name="login_bienvenida">¡Bienvenido!</string>
+    <string name="login_info">Necesitamos tu colaboración para la prueba de una actualización del software: \nBusca un entorno bien iluminado y colócate de frente a la pantalla de tu dispositivo.\nFíjate en los mensajes que aparecerán en pantalla dependiendo de tu posición\ny de la iluminación del entorno.</string>
+    <string name="login_insert">Introduce un nombre de usuario:</string>
     <string name="login_editText">Nombre de usuario</string>
-    <string name="login_button">TAREAS</string>
+    <string name="login_button">ACCESO A TAREAS</string>
 
     <!-- Strings para Textmemory-->
     <string name="statement_textmemory1">A continuación se le presentará un texto en la pantalla.\nLéalo atentamente y memorícelo.\nPosteriormente se le realizarán una serie de preguntas sobre dicho texto, elija la opción que considera acertada.</string>
