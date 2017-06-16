@@ -151,16 +151,6 @@ public class ResultsTR extends AppCompatActivity {
 
     }
 
-    /*private DataPoint[] generateData(float[] attention, int numFrames ) {
-        DataPoint[] values = new DataPoint[numFrames];
-        for (int i=0; i<numFrames; i++) {
-            for (float j: attention){
-                DataPoint v = new DataPoint(i, (double)j);
-                values[i] = v;
-            }
-        }
-        return values;
-    }*/
     /*
      * Método que recibe el número entero de respuestas correcta
      * y devuelve una String con el porcentaje de aciertos
