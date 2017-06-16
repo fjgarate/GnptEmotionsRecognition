@@ -196,7 +196,7 @@ public class ResultsTR extends AppCompatActivity {
         //Obtenemos los datos del Articles en formato JSON
         String strJson = newResults.toJSON();
         //Se define la URL del servidor a la cual se enviarán lso datos
-        String baseUrl = "http://192.168.1.115:8080/Servidor/Resultados";
+        String baseUrl = "http://138.4.10.142:8443/saveresults";
         //Se ejecuta la peticion Http POST empleando AsyncTAsk
         new ProgressTR().execute(baseUrl, strJson);
     }
@@ -261,8 +261,8 @@ public class ResultsTR extends AppCompatActivity {
 
                 //Send Http PUT request to: "http://some.url" with request header:
 
-               String url_server="http://138.4.10.142:8443/saveresults";//URL address where we need to send it
-                URL url = new URL(url_server);
+
+                URL url = new URL(baseUrl);
 
                 JSONObject result = new JSONObject();
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
