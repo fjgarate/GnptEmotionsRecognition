@@ -1,6 +1,10 @@
 package gnpt.app.fcomediavilla.com.gnpt;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +26,15 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,17 +46,15 @@ import java.util.List;
 
 public class ResultsTR extends AppCompatActivity {
 
-    TextView percentage, corrects, mistakes, omissions, totalTime, scores, averageTimes, percentageGraphic, averageValGraphic, averageEngGraphic, averageAttGraphic, framesDetectedGraphic, framesNoFaceGraphic;
+    TextView percentage, corrects, mistakes, omissions, totalTime, scores, averageTimes, percentageGraphic;
     //GraphView graph;
-    String percentage_str, corrects_str, mistakes_str, omissions_str, time_str, score_str, averageTime_str, numFramesDetected_str, numFramesNoFace_str, att_average_str, val_average_str, eng_average_str;
-    int correct, mistake, omission, timer, score, percentageInt, framesDetected, framesNoFace, framesTotal;
+    String percentage_str, corrects_str, mistakes_str, omissions_str, time_str, score_str, averageTime_str, idUser;
+    int correct, mistake, omission, timer, score, percentageInt, framesDetected, framesNoFace/*, numEye, numMouth*/;
     double averageTime;
     ProgressBar pbPercentage;
     private AsyncTask mTask;
 
-    ArrayList<Float> attention = new ArrayList<>();
-    ArrayList<Float> valence = new ArrayList<>();
-    ArrayList<Float> engagement = new ArrayList<>();
+    ArrayList<EmotionDetected> emotion = new ArrayList<>();
     double att_average, val_average, eng_average;
 
     @Override
@@ -64,11 +71,6 @@ public class ResultsTR extends AppCompatActivity {
         averageTimes = (TextView) findViewById(R.id.average_time_TR);
         pbPercentage = (ProgressBar) findViewById(R.id.pbPercentage_TR);
         percentageGraphic = (TextView) findViewById(R.id.percentage_graphic_TR);
-        averageAttGraphic = (TextView) findViewById(R.id.averageAtt_TR);
-        averageEngGraphic = (TextView) findViewById(R.id.averageEng_TR);
-        averageValGraphic = (TextView) findViewById(R.id.averageVal_TR);
-        framesDetectedGraphic = (TextView) findViewById(R.id.numFramesDetected_TR);
-        framesNoFaceGraphic = (TextView) findViewById(R.id.numFramesNoFace_TR);
 
         correct = getIntent().getIntExtra("Corrects", 0);                          //Recibimos el número de respuestas correctas
         mistake = getIntent().getIntExtra("Mistakes", 0);                          //Recibimos el número de respuestas incorrectas
@@ -79,53 +81,30 @@ public class ResultsTR extends AppCompatActivity {
         }
         timer = getIntent().getIntExtra("Time", 0);                                //Recibimos el tiempo total empleado
         averageTime = getIntent().getDoubleExtra("AverageTime", 0);                //Recibimos el tiempo medio de reacción empleado
-        //attention = getIntent().getFloatArrayExtra("AttentionResult");
-        //attention = getIntent().getSerializableExtra("AttentionResult");
-        attention = (ArrayList<Float>) getIntent().getSerializableExtra("AttentionResult");
-        engagement = (ArrayList<Float>) getIntent().getSerializableExtra("EngagementResult");
-        valence = (ArrayList<Float>) getIntent().getSerializableExtra("ValenceResult");
+        emotion = (ArrayList<EmotionDetected>) getIntent().getSerializableExtra("EmotionResult");
         framesDetected = getIntent().getIntExtra("FramesDetected", 0);
         framesNoFace = getIntent().getIntExtra("FramesNoFace", 0);
-        framesTotal = framesDetected + framesNoFace;
 
         percentage_str = getResources().getString(R.string.percentage) + " " + getPercentage(correct);     //Cadena para el texto del porcentaje
         corrects_str = getResources().getString(R.string.corrects) + " " + correct;                        //Cadena para el texto de aciertos
-        mistakes_str = getResources().getString(R.string.mistakes) + " " + mistake;                        //Cadena para el texto de errores
+        mistakes_str = getResources().getString(R.string.mistakes) + " " + mistake;                         //Cadena para el texto de errores
         omissions_str = getResources().getString(R.string.omissions) + " " + omission;                     //Cadena para el texto de omisiones
-        score_str = getResources().getString(R.string.score) + " " + score;          //Cadena para el texto de puntuación
-        time_str = getResources().getString(R.string.time) + " " + timer + " s";                           //Cadena para el texto del tiempo total
+        score_str = getResources().getString(R.string.score) + " " + score;                           //Cadena para el texto de puntuación
+        time_str = getResources().getString(R.string.time) + " " + timer + " s";                         //Cadena para el texto del tiempo total
         averageTime_str = getResources().getString(R.string.average_time) + " " + averageTime + " s";      //Cadena para el texto del tiempo promedio de reacción
-        numFramesDetected_str = "Frames detectados: " + framesDetected;
-        numFramesNoFace_str = "Frames No Face: " + framesNoFace;
-        if (attention == null){
-            att_average_str = "null";
-        }else {
-            for (Float i : attention) {
-                att_average = i + att_average;
-            }
-            att_average = Math.round(att_average/(framesDetected));
-            att_average_str = "Atención media: " + att_average;
-        }
 
-        if (valence == null){
-            att_average_str = "null";
-        }else {
-            for (Float i : valence) {
-                val_average = i + val_average;
-            }
-            val_average = Math.round(val_average/(framesDetected));
-            val_average_str = "Valencia media: " + val_average;
+        for (EmotionDetected i : emotion) {
+            att_average = (double) i.attention + att_average;
+            eng_average = (double) i.engagement + eng_average;
+            val_average = (double) i.valence + val_average;
         }
+        att_average = Math.round(att_average/(framesDetected+framesNoFace));
+        eng_average = Math.round(eng_average/framesDetected);
+        val_average = Math.round(val_average/framesDetected);
 
-        if (engagement == null){
-            eng_average_str = "null";
-        }else {
-            for (Float i : engagement) {
-                eng_average = i + eng_average;
-            }
-            eng_average = Math.round(eng_average/(framesDetected));
-            eng_average_str = "Expresividad media: " + eng_average;
-        }
+        /*att_diff = emotion.get(emotion.size()-1).attention - emotion.get(0).attention;
+        eng_diff = emotion.get(emotion.size()-1).engagement - emotion.get(0).engagement;
+        val_diff = emotion.get(emotion.size()-1).valence - emotion.get(0).valence;*/
 
         percentage.setText(percentage_str);
         corrects.setText(corrects_str);
@@ -134,32 +113,26 @@ public class ResultsTR extends AppCompatActivity {
         scores.setText(score_str);
         totalTime.setText(time_str);
         averageTimes.setText(averageTime_str);
-        averageAttGraphic.setText(att_average_str);
-        averageEngGraphic.setText(eng_average_str);
-        averageValGraphic.setText(val_average_str);
-        framesDetectedGraphic.setText(numFramesDetected_str);
-        framesNoFaceGraphic.setText(numFramesNoFace_str);
 
-        Calendar c = Calendar.getInstance();
+        /*Calendar c = Calendar.getInstance();
         Date d = c.getTime();
-        String date = d.toString();
+        String date = d.toString();*/
 
-        //Results newResults = new Results(Login.idUser, date, Login.idSesion, Login.numSesion, "TimeReaction", percentageInt, correct, mistake, omission, score, timer, averageTime, att_average, numFrames, -1, -1);
-        Results newResults = new Results(Login.idUser, date, Login.idSesion, Login.numSesion, "TimeReaction", percentageInt, correct, mistake, omission, score, timer, averageTime, framesDetected, (int)att_average);
+        if(Register.justRegistered == true){
+            idUser = Register.idUser;
+        }else{
+            idUser = Login.idUser;
+        }
+
+        Results newResults = new Results(idUser, getCurrentTimeStamp(), Login.idSesion, Login.numSesion, "TimeReaction", percentageInt, correct, mistake, omission, score, timer, averageTime, -1, -1, framesDetected, framesNoFace, emotion);
         sendNewResults(newResults);
 
     }
 
-    /*private DataPoint[] generateData(float[] attention, int numFrames ) {
-        DataPoint[] values = new DataPoint[numFrames];
-        for (int i=0; i<numFrames; i++) {
-            for (float j: attention){
-                DataPoint v = new DataPoint(i, (double)j);
-                values[i] = v;
-            }
-        }
-        return values;
-    }*/
+    public String getCurrentTimeStamp() {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+    }
+
     /*
      * Método que recibe el número entero de respuestas correcta
      * y devuelve una String con el porcentaje de aciertos
@@ -202,10 +175,15 @@ public class ResultsTR extends AppCompatActivity {
      * de datos y de la creación de la barra de progeso de resultados
      */
     public void sendNewResults(Results newResults){
+        Log.i("ResultsTRLlega" , "sendNewResults");
         //Obtenemos los datos del Articles en formato JSON
         String strJson = newResults.toJSON();
         //Se define la URL del servidor a la cual se enviarán lso datos
-        String baseUrl = "http://192.168.1.115:8080/Servidor/Resultados";
+        //String baseUrl = "http://127.1.1.0:8443/saveresults";
+        //DEPARTAMENTO
+        //String baseUrl = "http://138.4.10.143:8443/saveresults";
+        //MOVIL
+        String baseUrl = "http://192.168.43.119:8443/saveresults";
         //Se ejecuta la peticion Http POST empleando AsyncTAsk
         new ProgressTR().execute(baseUrl, strJson);
     }
@@ -218,10 +196,201 @@ public class ResultsTR extends AppCompatActivity {
      * pantalla "Envío correcto", en caso contrario, "Error"
      */
     public void processResult(String result) {
-        if (result.contains("OK")) {
+        if (result.equals("OK")) {
             Toast.makeText(getApplicationContext(), "Envío correcto", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Error" + result, Toast.LENGTH_LONG).show();
+
+            // Si el resultado se ha guardado bien, enviamos lo que este guardado en local, si hay algo
+            Database mDbHelper = new Database(getApplicationContext());
+
+            // Gets the data repository in write mode
+            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+            if (db != null) {
+                try {
+                    String queryResults = String.format("SELECT * FROM %s", Contract.ResultsTable.TABLE_NAME);
+                    Cursor cursorResults = db.rawQuery(queryResults, null);
+                    int contadorResults = cursorResults.getCount();
+                    if (contadorResults > 0) {
+                        Toast.makeText(getApplicationContext(), "Se están enviando datos desde la base de datos local.", Toast.LENGTH_LONG).show();
+                        ArrayList<String> envio = new ArrayList<>();
+                        cursorResults.moveToFirst();
+                        Log.i("PruebaDatabase", "Columnas ResultsTable: " + contadorResults);
+                        Log.i("PruebaDatabase", "Position cursorResults: " + cursorResults.getPosition());
+                        while (cursorResults.isAfterLast() == false) {
+                            Log.i("PruebaDatabase", "Primer campo de results (user_name): " + cursorResults.getString(0));
+                            //Log.i("PruebaDatabase", "Primer campo de results (user_name): " + cursorResults.getColumnIndex(Contract.ResultsTable._ID));
+                            String user_name_db = cursorResults.getString(0);
+                            String date_db = cursorResults.getString(1);
+                            String session_id_db = cursorResults.getString(2);
+                            int session_num_db = cursorResults.getInt(3);
+                            String task_db = cursorResults.getString(4);
+                            int percentage_db = cursorResults.getInt(5);
+                            int correct_db = cursorResults.getInt(6);
+                            int mistaken_db = cursorResults.getInt(7);
+                            int omitted_db = cursorResults.getInt(8);
+                            int score_db = cursorResults.getInt(9);
+                            int time_total_db = cursorResults.getInt(10);
+                            double time_average_db = cursorResults.getDouble(11);
+                            int persevering_mistakes_db = cursorResults.getInt(12);
+                            int completed_category_db = cursorResults.getInt(13);
+                            int frames_detected_db = cursorResults.getInt(14);
+                            int frames_noface_db = cursorResults.getInt(15);
+                            int rowid = (int) cursorResults.getLong(cursorResults.getColumnIndex(Contract.ResultsTable._ID));
+                            ArrayList<EmotionDetected> emotion_db = new ArrayList<>();
+
+                            String queryEmotion = String.format("SELECT * FROM %s WHERE %s = %2d", Contract.EmotionTable.TABLE_NAME, Contract.EmotionTable.RESULT_ID, rowid);
+                            Log.i("PruebaDatabase", queryEmotion);
+                            Cursor cursorEmotion = db.rawQuery(queryEmotion, null);
+                            int contadorEmotion = cursorEmotion.getCount();
+                            cursorEmotion.moveToFirst();
+                            Log.i("PruebaDatabase", "Columnas EmotionTable: " + contadorEmotion);
+                            Log.i("PruebaDatabase", "Position cursorEmotion: " + cursorEmotion.getPosition());
+
+                            while (cursorEmotion.isAfterLast() == false) {
+                                EmotionDetected eachEmotion = new EmotionDetected();
+                                eachEmotion.attention = cursorEmotion.getFloat(1);
+                                eachEmotion.anger = cursorEmotion.getFloat(2);
+                                eachEmotion.contempt = cursorEmotion.getFloat(3);
+                                eachEmotion.disgust = cursorEmotion.getFloat(4);
+                                eachEmotion.engagement = cursorEmotion.getFloat(5);
+                                eachEmotion.fear = cursorEmotion.getFloat(6);
+                                eachEmotion.joy = cursorEmotion.getFloat(7);
+                                eachEmotion.sadness = cursorEmotion.getFloat(8);
+                                eachEmotion.surprise = cursorEmotion.getFloat(9);
+                                eachEmotion.valence = cursorEmotion.getFloat(10);
+                                eachEmotion.view = cursorEmotion.getInt(11);
+                                emotion_db.add(eachEmotion);
+                                cursorEmotion.moveToNext();
+                            }
+                            Results resultFromDB = new Results(user_name_db, date_db, session_id_db, session_num_db, task_db, percentage_db, correct_db, mistaken_db, omitted_db, score_db, time_total_db, time_average_db, persevering_mistakes_db, completed_category_db, frames_detected_db, frames_noface_db, emotion_db);
+                            String resultFromDBJson = resultFromDB.toJSON();
+                            envio.add(resultFromDBJson);
+
+                            cursorResults.moveToNext();
+                        }
+
+                        String resultFromDBJson = "";
+                        for (String i : envio) {
+                            resultFromDBJson += String.format("%s,", i);
+                        }
+                        resultFromDBJson = resultFromDBJson.substring(0, resultFromDBJson.length() - 1);
+                        Log.i("PruebaDatabase", resultFromDBJson);
+
+                        //DEPARTAMENTO
+                        //String baseUrl = "http://138.4.10.143:8443/enviofromlocal";
+                        //NECN
+                        //String baseUrl = "http://192.168.0.189:8443/enviofromlocal";
+                        //CASA
+                        //String baseUrl = "http://192.168.0.161:8443/enviofromlocal";
+                        //MOVIL
+                        String baseUrl = "http://192.168.43.119:8443/enviofromlocal";
+
+                        new ProgressTR().execute(baseUrl, resultFromDBJson);
+                    }
+                }catch (Exception e) {
+                    Log.e("ResultsPhotos ", "Error while saving result: " + e.toString());
+                    Log.i("PruebaDatabase ", "Error while upgrading database: " + e.toString());
+                    e.printStackTrace();
+                }
+                db.close();
+            }
+
+        } else if (result.equals("OK2")){
+            Toast.makeText(getApplicationContext(), "Envío desde base de datos local correcto.", Toast.LENGTH_LONG).show();
+
+            // Si el resultado se ha guardado bien, enviamos lo que este guardado en local, si hay algo
+            Database mDbHelper = new Database(getApplicationContext());
+
+            // Gets the data repository in write mode
+            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+            if (db != null) {
+                try{
+                    mDbHelper.onUpgrade(db, 1, 2);
+                } catch (Exception e) {
+                    Log.e("ResultsPhotos ", "Error while saving result: " + e.toString());
+                    Log.i("PruebaDatabase ", "Error while upgrading database: " + e.toString());
+                    e.printStackTrace();
+                }
+                db.close();
+            }
+        }else{
+            long resultId;
+            Database mDbHelper = new Database(getApplicationContext());
+
+            // Gets the data repository in write mode
+            SQLiteDatabase db = mDbHelper.getWritableDatabase();
+            if (db != null) {
+                //mDbHelper.onUpgrade(db,1,2);
+                try {
+                    //mDbHelper.onUpgrade(db,1,2);
+                    // Create a new map of values, where column names are the keys
+                    ContentValues values = new ContentValues();
+                    values.put(Contract.ResultsTable.USER_NAME, idUser);
+                    values.put(Contract.ResultsTable.DATE, getCurrentTimeStamp());
+                    values.put(Contract.ResultsTable.SESSION_ID, Login.idSesion);
+                    values.put(Contract.ResultsTable.SESSION_NUM, Login.numSesion);
+                    values.put(Contract.ResultsTable.TASK, "TimeReaction");
+                    values.put(Contract.ResultsTable.PERCENTAGE, percentageInt);
+                    values.put(Contract.ResultsTable.CORRECT, correct);
+                    values.put(Contract.ResultsTable.MISTAKEN, mistake);
+                    values.put(Contract.ResultsTable.OMITTED, omission);
+                    values.put(Contract.ResultsTable.SCORE, score);
+                    values.put(Contract.ResultsTable.TIME_TOTAL, timer);
+                    values.put(Contract.ResultsTable.TIME_AVERAGE, averageTime);
+                    values.put(Contract.ResultsTable.PERSEVERING_MISTAKES, -1);
+                    values.put(Contract.ResultsTable.COMPLETED_CATEGORY, -1);
+                    values.put(Contract.ResultsTable.FRAMES_DETECTED, framesDetected);
+                    values.put(Contract.ResultsTable.FRAMES_NOFACE, framesNoFace);
+
+                    // Insert the new row, returning the primary key value of the new row
+                    resultId = db.insert(Contract.ResultsTable.TABLE_NAME, null, values);
+                    if (resultId != -1) {
+                        Toast.makeText(getApplicationContext(), "Se ha encontrado un problema en su conexión. Envío correcto a base de datos local.", Toast.LENGTH_SHORT).show();
+                        Log.i("PruebaDatabase ", "New result inserted in results table with id " + resultId);
+                    } else {
+                        Log.i("PruebaDatabase ", "Error when inserting result in results table");
+                    }
+
+                } catch (Exception e) {
+                    Log.e("ResultsPhotos ", "Error while saving result: " + e.toString());
+                    Log.i("PruebaDatabase ", "Error while saving result: " + e.toString());
+                    e.printStackTrace();
+                    resultId = 0;
+                }
+                for (EmotionDetected i : emotion) {
+                    try {
+                        // Create a new map of values, where column names are the keys
+                        ContentValues values = new ContentValues();
+                        values.put(Contract.EmotionTable.RESULT_ID, resultId);
+                        values.put(Contract.EmotionTable.ATTENTION, i.attention);
+                        values.put(Contract.EmotionTable.ANGER, i.anger);
+                        values.put(Contract.EmotionTable.CONTEMPT, i.contempt);
+                        values.put(Contract.EmotionTable.DISGUST, i.disgust);
+                        values.put(Contract.EmotionTable.ENGAGEMENT, i.engagement);
+                        values.put(Contract.EmotionTable.FEAR, i.fear);
+                        values.put(Contract.EmotionTable.JOY, i.joy);
+                        values.put(Contract.EmotionTable.SADNESS, i.sadness);
+                        values.put(Contract.EmotionTable.SURPRISE, i.surprise);
+                        values.put(Contract.EmotionTable.VALENCE, i.valence);
+                        values.put(Contract.EmotionTable.VIEW, i.view);
+
+                        // Insert the new row, returning the primary key value of the new row
+                        long newRowId = db.insert(Contract.EmotionTable.TABLE_NAME, null, values);
+                        if (newRowId != -1) {
+                            Log.i("PruebaDatabase ", "New emotion inserted in emotion_result table with id " + newRowId);
+                        } else {
+                            Log.i("PruebaDatabase ", "Error while saving emotion result");
+                        }
+
+                    } catch (Exception e) {
+                        Log.e("PruebaDatabase ", "Error while saving emotion result: " + e.toString());
+                        Log.i("PruebaDatabase ", "Error while saving emotion result: " + e.toString());
+                        e.printStackTrace();
+                    }
+                }
+                db.close();
+            }
         }
     }
 
@@ -232,7 +401,7 @@ public class ResultsTR extends AppCompatActivity {
      * La utilizamos para la creación de la barra de progreso de los resultados
      */
     private class ProgressTR extends AsyncTask<String, Integer, String> {
-
+        int contador = 0;
 
         /*
          * Método que se ejecuta en la hebra principal antes de dar paso a la hebra en segundo plano.
@@ -242,6 +411,7 @@ public class ResultsTR extends AppCompatActivity {
         protected void onPreExecute(){
             Log.i("Pruebas2" , "::: onPreExecute ");
             pbPercentage.setProgress(0);
+            Log.i("ResultsTRLlega:" , " 2");
         }
 
         /*
@@ -253,53 +423,88 @@ public class ResultsTR extends AppCompatActivity {
         protected String doInBackground(String...params) {
             String baseUrl = params[0];
             String jsonData = params[1];
-            BufferedReader in = null;
+            BufferedReader br = null;
+            JSONObject jsonObj = new JSONObject();
 
             Log.i("Pruebas2", "::: doInBackground ");
-            for (int i = 0; i < percentageInt/2+1; i++) {
-                try {
-                    Thread.sleep(50);
-                    publishProgress(i*2);                   //LLamada al método onProgressUpdate()
-                } catch (InterruptedException e) {
-                    cancel(true);
-                    e.printStackTrace();
-                }
-            }
-
-            try{
-                //Creamos un objeto Cliente HTTP para manejar la peticion al servidor
-                HttpClient httpClient = new DefaultHttpClient();
-                //Creamos objeto para armar peticion de tipo HTTP POST
-                HttpPost post = new HttpPost(baseUrl);
-                //Configuramos los parametos que vaos a enviar con la peticion HTTP POST
-                List<NameValuePair> nvp = new ArrayList<>(2);
-                nvp.add(new BasicNameValuePair("resultados",jsonData));
-                //post.setHeader("Content-type", "application/json");
-                post.setEntity(new UrlEncodedFormEntity(nvp));
-                //Se ejecuta el envio de la peticion y se espera la respuesta de la misma.
-                HttpResponse response = httpClient.execute(post);
-                in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line = "";
-                String NL = System.getProperty("line.separator");
-                while ((line = in.readLine()) != null) {
-                    sb.append(line + NL);
-                }
-                in.close();
-                return sb.toString();
-            } catch (Exception e) {
-                return "Exception happened: " + e.getMessage();
-            } finally {
-                if (in != null) {
+            if (contador == 0) {
+                for (int i = 0; i < percentageInt/2+1; i++) {
                     try {
-                        in.close();
-                    } catch (IOException e) {
+                        Log.i("ResultsTRLlega:" , " 3");
+                        Thread.sleep(50);
+                        publishProgress(i*2);                   //LLamada al método onProgressUpdate()
+                    } catch (InterruptedException e) {
+                        cancel(true);
                         e.printStackTrace();
                     }
                 }
             }
 
+            try{
+                Log.i("PruebaDatabase:" , "Llega a try");
+                //Send Http PUT request to: "http://some.url" with request header:
+
+                URL url = new URL(baseUrl);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setReadTimeout(10000);
+                con.setConnectTimeout(15000);
+                con.setRequestMethod("POST");
+                con.setDoInput(true);
+                con.setDoOutput(true);
+
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("resultados", jsonData);
+                String query = builder.build().getEncodedQuery();
+
+                OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+                wr.write(query);
+                wr.flush();
+
+                StringBuilder sb = new StringBuilder();
+                int HttpResult = con.getResponseCode();
+                if (HttpResult == HttpURLConnection.HTTP_OK) {
+                    br = new BufferedReader(
+                            new InputStreamReader(con.getInputStream(), "utf-8"));
+                    String line = null;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    br.close();
+                    jsonObj = new JSONObject(sb.toString());
+                    //con.disconnect();
+                    Log.i("PruebaDatabase" , "Resultado servirdor "+sb.toString());
+                    System.out.println("" + sb.toString());
+                } else {
+                    Log.i("PruebaDatabase" , "Problema servidor "+con.getResponseMessage());
+                    System.out.println(con.getResponseMessage());
+                }
+                contador++;
+                return jsonObj.getString("msg");
+
+            } catch (Exception e) {
+                Log.i("PruebaDatabase" , "Error servidor "+e.getMessage());
+                return "Exception happened: " + e.getMessage();
+            }
         }
+  /*     //Creamos un objeto Cliente HTTP para manejar la peticion al servidor
+        HttpClient httpClient = new DefaultHttpClient();
+        //Creamos objeto para armar peticion de tipo HTTP POST
+        HttpPost post = new HttpPost(baseUrl);
+        //Configuramos los parametos que vaos a enviar con la peticion HTTP POST
+        List<NameValuePair> nvp = new ArrayList<>(2);
+        nvp.add(new BasicNameValuePair("resultados",jsonData));
+        //post.setHeader("Content-type", "application/json");
+        post.setEntity(new UrlEncodedFormEntity(nvp));
+        //Se ejecuta el envio de la peticion y se espera la respuesta de la misma.
+        HttpResponse response = httpClient.execute(post);
+        in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuffer sb = new StringBuffer("");
+        String line = "";
+        String NL = System.getProperty("line.separator");
+        while ((line = in.readLine()) != null) {
+            sb.append(line + NL);
+        }
+        in.close();*/
 
         /*
          * Método que se ejecuta en la hebra principal. Su ejecución se empieza al finalizar doInBackground().

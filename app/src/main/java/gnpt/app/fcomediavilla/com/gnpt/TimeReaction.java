@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -42,19 +43,24 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
     boolean cancelation = false;
     ArrayList<Double> tReaction;
 
-    // detecting attention, enagement and valence
-    int contDetected = 0;
-    int contNoFace = 0;
-    ArrayList<Float> attention = new ArrayList<>();
-    ArrayList<Float> engagement = new ArrayList<>();
-    ArrayList<Float> valence = new ArrayList<>();
-
-    //Affectiva
+    //----- Affectiva
     int previewWidth = 0;
     int previewHeight = 0;
     RelativeLayout mainLayout;
     CameraDetector detector;
     SurfaceView cameraPreview;
+    FrameLayout window;
+
+    // detecting expressions: eye closure and mouth widen
+    /*int countFramesEye = 0;
+    int countFramesMouth = 0;
+    int countMouth = 0;
+    int countEye = 0;*/
+
+    // detecting attention and all emotions
+    int contDetected = 0;
+    int contNoFace = 0;
+    ArrayList<EmotionDetected> emotionAllFrames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +91,12 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
         points = (TextView) findViewById(R.id.text_points_TR);
 
         // Affectiva
-        cameraPreview = new SurfaceView(this); /*{
+        cameraPreview = new SurfaceView(this);
+        //cameraPreview = (SurfaceView) findViewById(R.id.camera_preview);
+        emotionAllFrames = (ArrayList<EmotionDetected>) getIntent().getSerializableExtra("EmotionResult");
+        contDetected = getIntent().getIntExtra("FramesDetected", 0);
+        contNoFace = getIntent().getIntExtra("FramesNoFace", 0);
+        /*{
             @Override
             public void onMeasure(int widthSpec, int heightSpec) {
                 // int measureWidth = MeasureSpec.getSize(widthSpec);
@@ -98,16 +109,18 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
         };*/
         mainLayout = (RelativeLayout) findViewById(R.id.time_reaction_main);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         cameraPreview.setLayoutParams(params);
-        cameraPreview.getLayoutParams().width = 1;
-        cameraPreview.getLayoutParams().height = 1;
+        cameraPreview.getLayoutParams().width = 550;
+        cameraPreview.getLayoutParams().height = 350;
         mainLayout.addView(cameraPreview,0);
 
         detector = new CameraDetector(this, CameraDetector.CameraType.CAMERA_FRONT, cameraPreview);
         detector.setDetectAttention(true);
-        detector.setDetectValence(true);
-        detector.setDetectEngagement(true);
+        detector.setDetectAllEmotions(true);
+        /*detector.setDetectEyeClosure(true);
+        detector.setDetectMouthOpen(true);*/
 
         detector.setImageListener(this);
         detector.setOnCameraEventListener(this);
@@ -118,10 +131,7 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
 
         }
         myTask = new Flujo().execute();
-
-
     }
-
 
     public void circlePressed(View view){
 
@@ -167,11 +177,14 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
         intent.putExtra("Omissions", omission);
         intent.putExtra("Time", (int)timer);
         intent.putExtra("AverageTime", averageTime);
-        intent.putExtra("AttentionResult", attention);
-        intent.putExtra("EngagementResult", engagement);
-        intent.putExtra("ValenceResult", valence);
+        // info frames in which face was detected/not detected
         intent.putExtra("FramesDetected", contDetected);
         intent.putExtra("FramesNoFace", contNoFace);
+        // info related to emotions
+        intent.putExtra("EmotionResult", emotionAllFrames);
+        // info related to eyes/mouth
+        /*intent.putExtra("NumEye", countEye);
+        intent.putExtra("NumMouth", countMouth);*/
         startActivity(intent);
     }
 
@@ -179,7 +192,7 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
     private class Flujo extends AsyncTask<Void, Integer, Integer>{
 
         ArrayList<Integer> indexCircles;
-        double taskTime = 20;
+        double taskTime = 300;
 
 
         protected void onPreExecute(){
@@ -247,8 +260,8 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
 
         protected void onPostExecute(Integer result){
 
-            Toast toast = Toast.makeText(getApplicationContext(), "Quémalo todo", Toast.LENGTH_LONG);
-            toast.show();
+            /*Toast toast = Toast.makeText(getApplicationContext(), "Quémalo todo", Toast.LENGTH_LONG);
+            toast.show();*/
             Log.i("Prueba" , "::: respuestas correctas: "+ correct);
             Log.i("Prueba" , "::: fallos: "+ mistake);
             Log.i("Prueba" , "::: total: "+ recuento);
@@ -263,11 +276,14 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
             intent.putExtra("Omissions", omission);
             intent.putExtra("Time", (int)timer);
             intent.putExtra("AverageTime", averageTime);
-            intent.putExtra("AttentionResult", attention);
-            intent.putExtra("EngagementResult", engagement);
-            intent.putExtra("ValenceResult", valence);
+            // info frames in which face was detected/not detected
             intent.putExtra("FramesDetected", contDetected);
             intent.putExtra("FramesNoFace", contNoFace);
+            // info related to emotions
+            intent.putExtra("EmotionResult", emotionAllFrames);
+            // info related to eyes/mouth
+            /*intent.putExtra("NumEye", countEye);
+            intent.putExtra("NumMouth", countMouth);*/
             startActivity(intent);
 
         }
@@ -380,7 +396,6 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
             toast.show();
 
         }
-        //Affectiva
     }
 
     //Affectiva
@@ -403,21 +418,58 @@ public class TimeReaction extends AppCompatActivity implements CameraDetector.Ca
         if (list == null)
             return;
         if (list.size() == 0) {
-        /*    smileTextView.setText("NO FACE");
-            ageTextView.setText("");
-            ethnicityTextView.setText("");*/
             Log.i("TimeReaction" , ": NO FACE");
             contNoFace++;
         } else {
             Face face = list.get(0);
-            //attention[contador]=face.expressions.getAttention();
-            attention.add(face.expressions.getAttention());
-            engagement.add(face.emotions.getEngagement());
-            valence.add(face.emotions.getValence());
+            EmotionDetected emotion = new EmotionDetected();
+
+            emotion.attention = face.expressions.getAttention();
+            emotion.anger = face.emotions.getAnger();
+            emotion.contempt = face.emotions.getContempt();
+            emotion.disgust = face.emotions.getDisgust();
+            emotion.engagement = face.emotions.getEngagement();
+            emotion.fear = face.emotions.getFear();
+            emotion.joy = face.emotions.getJoy();
+            emotion.sadness = face.emotions.getSadness();
+            emotion.surprise = face.emotions.getSurprise();
+            emotion.valence = face.emotions.getValence();
+            emotion.view = 1;
+
+            emotionAllFrames.add(emotion);
+
             contDetected++;
 
-            Log.i("TimeReaction" , ": ENGAGEMENT "+ String.format(" \n%.2f",face.emotions.getEngagement()));
+            /*if(face.expressions.getEyeClosure()>60){
+                countFramesEye++;
+                if(countFramesEye==5){
+                    countFramesEye = 0;
+                    countEye++;
+                }
+            }
+            if(face.expressions.getMouthOpen()>60){
+                countFramesMouth++;
+                if(countFramesMouth==5){
+                    countFramesMouth = 0;
+                    countMouth++;
+                }
+            }*/
         }
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (detector.isRunning()) {
+            try {
+                detector.stop();
+            } catch (Exception e) {
+                Log.e("Login", e.getMessage());
+            }
+        }
+        detector.setDetectAttention(false);
+        detector.setDetectAllEmotions(false);
+        detector.setDetectEyeClosure(false);
+        detector.setDetectMouthOpen(false);
 
+    }
 }

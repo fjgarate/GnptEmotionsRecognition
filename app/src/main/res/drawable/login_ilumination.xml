@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ilumination_fail" />
+    <item android:drawable="@drawable/ilumination_ok" android:background="@android:color/white" />
+</transition>

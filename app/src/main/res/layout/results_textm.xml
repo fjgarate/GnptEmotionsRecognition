@@ -27,27 +27,37 @@
             android:text="@string/title_results"
             android:textSize="@dimen/results_title_size"
             android:layout_marginBottom="@dimen/results_title_margin_text"/>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TableRow>
+                <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+                    style="@style/resultsTextStyle"
+                    android:id="@+id/percentage_TM"/>
+            </TableRow>
+            <TableRow>
+                <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+                    style="@style/resultsTextStyle"
+                    android:id="@+id/corrects_TM"/>
+             </TableRow>
+        <TableRow>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+                style="@style/resultsTextStyle"
+                android:id="@+id/mistakes_TM"/>
+        </TableRow>
+        <TableRow>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+                style="@style/resultsTextStyle"
+                android:id="@+id/omissions_TM"/>
+        </TableRow>
+        <TableRow>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
+                style="@style/resultsTextStyle"
+                android:id="@+id/score_TM"/>
+        </TableRow>
 
-        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
-            style="@style/resultsTextStyle"
-            android:id="@+id/percentage_TM"/>
 
-        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
-            style="@style/resultsTextStyle"
-            android:id="@+id/corrects_TM"/>
-
-        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
-            style="@style/resultsTextStyle"
-            android:id="@+id/mistakes_TM"/>
-
-        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
-            style="@style/resultsTextStyle"
-            android:id="@+id/omissions_TM"/>
-
-        <gnpt.app.fcomediavilla.com.gnpt.MyTextViewRegular
-            style="@style/resultsTextStyle"
-            android:id="@+id/score_TM"/>
-
+    </TableLayout>
     </LinearLayout>
 
     <RelativeLayout

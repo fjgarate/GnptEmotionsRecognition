@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/statement_tr"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,14 +9,24 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/BackColorAtention">
-
-    <gnpt.app.fcomediavilla.com.gnpt.MyTextView
-        style="@style/titleTaskStyle"
-        android:text="@string/title_attention"/>
-    <gnpt.app.fcomediavilla.com.gnpt.MyTextView
-        style="@style/statementTaskStyle"
-        android:text="@string/statement_timereaction"/>
-    <ImageButton
-        style="@style/StatementContinueButtonStyle"
-        android:src="@drawable/button_continue_ins_selector"/>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tablacamara">
+        <TableRow>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/titleTaskStyle"
+                android:text="@string/title_attention"/>
+        </TableRow>
+        <TableRow>
+            <gnpt.app.fcomediavilla.com.gnpt.MyTextView
+                style="@style/statementTaskStyle"
+                android:text="@string/statement_timereaction"/>
+        </TableRow>
+        <TableRow>
+            <ImageButton
+                style="@style/StatementContinueButtonStyle"
+                android:src="@drawable/button_continue_ins_selector"/>
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

@@ -15,11 +15,13 @@ public class Initial extends AppCompatActivity {
 
     Handler handler;
     Runnable runnable;
+    String previo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.initial);
+        previo = getIntent().getStringExtra("Procedencia");
 
         try{
             Thread.sleep(2000);
@@ -72,8 +74,13 @@ public class Initial extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         handler.removeCallbacks(runnable);
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
+        if(previo.equals("Login")) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }else if(previo.equals("Register")){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
 }

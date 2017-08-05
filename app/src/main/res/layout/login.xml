@@ -13,53 +13,108 @@
 
     <TextView
         android:id="@+id/login_bienvenida"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="0.16"
-        android:height="50dp"
         android:fontFamily="sans-serif"
         android:text="@string/login_bienvenida"
         android:textAlignment="center"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
+        android:textSize="80sp"
+        android:textStyle="bold"
+        android:width="600sp"
+        android:layout_gravity="left"
+        android:paddingBottom="50px"/>
     <TextView
         android:id="@+id/login_info"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="10dp"
-        android:height="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
         android:text="@string/login_info"
         android:textAlignment="center"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/login_insert"
+        android:textSize="25sp"
+        android:paddingBottom="50px"/>
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="50px">
+        <TableRow
+            android:gravity="center">
+            <TextView
+                android:id="@+id/login_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="200sp"
+                android:height="50sp"
+                android:text="@string/login_position"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+            <ImageButton
+                android:id="@+id/position"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/login_position"
+                android:background="@android:color/transparent"/>
+            <TextView
+                android:id="@+id/login_ilumination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="200sp"
+                android:height="50sp"
+                android:text="@string/login_ilumination"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+            <ImageButton
+                android:id="@+id/ilumination"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/login_ilumination"
+                android:background="@android:color/transparent"/>
+        </TableRow>
+    </TableLayout>
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:height="20dp"
-        android:text="@string/login_insert"
-        android:textAlignment="center"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/login_user"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="10dp"
-        android:hint="@string/login_editText"
-        android:textAlignment="center"/>
+        android:paddingBottom="50px">
+        <TableRow
+            android:gravity="center">
+            <TextView
+                android:id="@+id/login_insert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/login_insert"
+                android:textAlignment="center"
+                android:textSize="25sp" />
+            <EditText
+                android:id="@+id/login_user"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/login_editText"
+                android:textAlignment="center"
+                android:textSize="25sp"/>
+        </TableRow>
+    </TableLayout>
 
     <Button
         android:id="@+id/editText"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
         android:onClick="toIndex"
         android:text="@string/login_button"
         android:textAlignment="center"
-        android:textSize="18sp" />
+        android:textSize="25sp" />
 
+    <Button
+        android:id="@+id/toregister"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:onClick="toRegister"
+        android:text="@string/login_button_register"
+        android:textAlignment="center"
+        android:textSize="25sp" />
 
 </LinearLayout>

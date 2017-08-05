@@ -90,6 +90,9 @@
         <activity android:name=".ResultsFlex"
             android:screenOrientation="landscape">
         </activity>
+        <activity android:name=".Register"
+            android:screenOrientation="landscape">
+        </activity>
 
     </application>
 
